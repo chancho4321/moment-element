@@ -5,7 +5,7 @@ This code may only be used under the MIT style license found at https://abdonrd.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="moment-import.html">
+<link rel="import" href="moment-with-locales-import.html">
 
 <!--
 Web Component (with Polymer) wrapper for the [moment](https://github.com/moment/moment) library.
@@ -77,6 +77,15 @@ Examples:
         },
 
         /**
+         * Relative time using [moment Time to now](http://momentjs.com/docs/#/displaying/tonow/)
+         * or [moment Time to datetime](http://momentjs.com/docs/#/displaying/to/).
+         */
+        locale: {
+          type: String,
+          value: 'en'
+        },
+
+        /**
          * The output datetime.
          */
         output: {
@@ -95,7 +104,7 @@ Examples:
       },
 
       observers: [
-        '_computeOutput(__moment, outputFormat, from, to)'
+        '_computeOutput(__moment, outputFormat, from, to, locale)'
       ],
 
       _computeMoment: function(datetime, inputFormat) {
@@ -115,8 +124,11 @@ Examples:
         );
       },
 
-      _computeOutput: function(_moment, outputFormat, from, to) {
+      _computeOutput: function(_moment, outputFormat, from, to, locale) {
         var output;
+
+        if(locale) _moment.locale(locale);
+
         if (outputFormat) {
           output = _moment.format(outputFormat);
         } else if (from) {
