@@ -28,7 +28,7 @@ This code may only be used under the MIT style license found at https://abdonrd.
       suite('moment-element', function() {
         test('instantiating the element works', function() {
           var element = fixture('basic');
-          assert.equal(element.is, 'moment-element');
+          assert.equal(element.constructor.is, 'moment-element');
         });
       });
     </script>
